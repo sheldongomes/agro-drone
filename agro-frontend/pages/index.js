@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button, Row } from 'react-bootstrap';
 
@@ -20,6 +20,10 @@ export default function Home() {
   const rastrearDrone = () => {
     setRastreamentoAtivo(!rastreamentoAtivo);
   }
+
+  useEffect(() => {
+    setInterval(() => handleSubmit(onSubmit)(), 10000);
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -59,7 +63,7 @@ export default function Home() {
             <Form.Text className="text-muted">Umidade Selecionada: {umidade}%</Form.Text>
           </Form.Group>
 
-          <Button className="btn btn-primary btn-block" type="submit">Enviar dados</Button>
+          {/*<Button className="btn btn-primary btn-block" type="submit">Enviar dados</Button>*/}
           
           <br/>
           { !rastreamentoAtivo && <Button onClick={rastrearDrone} variant="success" block type="button">Ativar Rastreamento</Button> }
