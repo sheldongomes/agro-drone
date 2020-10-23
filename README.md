@@ -30,7 +30,7 @@ Para iniciar o projeto são necessários alguns passos:
 
 ### Observações
 
-- Ambas as queues somente serão alimentadas se todas as informações do formulario forem preenchidas (ID Drone, Latitude, Longitude);
+- Ambas as queues somente serão alimentadas se todas as informações do formulario forem preenchidas (ID Drone, Latitude, Longitude) e válidas (latitude, longitude);
 - A queue drone.allinfo será alimentada de 10 em 10 segundos;
 - A queue drone.locationInfo será alimentada somente se o botão de ativar rastreamento for ativado sendo o intervalo de 10 em 10 segundos;
     
