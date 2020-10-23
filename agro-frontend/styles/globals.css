@@ -14,3 +14,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.invalid-message {
+  color: red;
+  font-size: 13px;
+}

@@ -14,7 +14,7 @@ export default function Home() {
   const [ umidade, setUmidade ] = useState(50);
   const [ callInterval, setCallInterval ] = useState()
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = function(data, ras) {
     
@@ -59,12 +59,14 @@ export default function Home() {
 
           <Form.Group>
             <Form.Label>Latitude:</Form.Label>
-            <Form.Control type="number" name="latitude" ref={register({ required: true })}></Form.Control>
+            <Form.Control type="number" name="latitude" ref={register({ required: true, validate: value => (value >= -90 && value <= 90) || "Latitude inválida" })}></Form.Control>
+            <div className="invalid-message">{errors.latitude && errors.latitude.message}</div>
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Longitude:</Form.Label>
-            <Form.Control type="number" name="longitude" ref={register({ required: true })}></Form.Control>
+            <Form.Control type="number" name="longitude" ref={register({ required: true, validate: value => (value >= -180 && value <= 180) || "Longitude inválida" })}></Form.Control>
+            <div className="invalid-message">{errors.longitude && errors.longitude.message}</div>
           </Form.Group>
 
           <Form.Group>
