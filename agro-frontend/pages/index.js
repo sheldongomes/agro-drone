@@ -15,7 +15,16 @@ export default function Home() {
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = data => console.log(data, 'data');
+  const onSubmit = function(data) {
+    
+    data.routingKeys = ["allinfo"];
+    if(rastreamentoAtivo) data.routingKeys.push("locationinfo")
+
+    fetch('/api/sendDroneInfo', {method: 'POST', headers: {'Contet-Type': 'application/json' }, body: JSON.stringify(data)})
+      .then(response => response.json())
+      .then(resData => console.info('sended to queue'));
+
+  };
 
   const rastrearDrone = () => {
     setRastreamentoAtivo(!rastreamentoAtivo);
