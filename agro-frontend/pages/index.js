@@ -12,17 +12,18 @@ export default function Home() {
   const [ rastreamentoAtivo, setRastreamentoAtivo ] = useState(false);
   const [ temperatura, setTemperatura ] = useState(7);
   const [ umidade, setUmidade ] = useState(50);
+  const [ callInterval, setCallInterval ] = useState()
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = function(data) {
+  const onSubmit = function(data, ras) {
     
     data.routingKeys = ["allinfo"];
-    if(rastreamentoAtivo) data.routingKeys.push("locationinfo")
+    if(ras) data.routingKeys.push("locationinfo")
 
     fetch('/api/sendDroneInfo', {method: 'POST', headers: {'Contet-Type': 'application/json' }, body: JSON.stringify(data)})
       .then(response => response.json())
-      .then(resData => console.info('sended to queue'));
+      .then(resData => console.info('sended to queue(s) ' + data.routingKeys.toString()));
 
   };
 
@@ -31,8 +32,14 @@ export default function Home() {
   }
 
   useEffect(() => {
-    setInterval(() => handleSubmit(onSubmit)(), 10000);
-  }, [])
+    if(callInterval) {
+      clearInterval(callInterval)
+      setCallInterval(undefined);
+    }
+
+    let interval = setInterval(() => handleSubmit(onSubmit)(rastreamentoAtivo), 10000);
+    setCallInterval(interval)
+  }, [rastreamentoAtivo])
 
   return (
     <div className={styles.container}>

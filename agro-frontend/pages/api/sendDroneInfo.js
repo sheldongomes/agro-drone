@@ -12,9 +12,9 @@ export default (req, res) => {
             const routingKeys = droneInfo.routingKeys;
             delete droneInfo.routingKeys;
 
-            routingKeys.map((routingKey) => {
+            routingKeys.map((routingKey, index) => {
                 publish(pubChannel, 'exchange.drone', routingKey, Buffer.from(JSON.stringify(droneInfo)), () => {
-                    conn.close();
+                    if(index === (routingKeys.length -1)) conn.close();
                 });
             })
             
